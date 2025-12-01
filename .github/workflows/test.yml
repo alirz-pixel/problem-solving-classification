@@ -24,4 +24,4 @@ jobs:
 
           echo
           echo "==== changed_files.txt 내용 ===="
-          cat changed_files.txt || echo "(no changed files)"
+          cat changed_files.txt || echo "(no changed files..)"
