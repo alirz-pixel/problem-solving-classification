@@ -33,4 +33,4 @@ jobs:
 
       - name: Run Python script with changed_files.txt
         run: |
-          python scripts/test.py changed_files.txt
+          python main.py changed_files.txt
