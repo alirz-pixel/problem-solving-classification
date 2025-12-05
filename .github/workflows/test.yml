@@ -1,0 +1,63 @@
+name: test
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  show-changed-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Get changed files
+        run: |
+          echo "Before commit: ${{ github.event.before }}"
+          echo "After  commit: ${{ github.sha }}"
+          echo
+
+          echo "Changed files between before and after:"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | tee changed_files.txt
+
+          echo
+          echo "==== changed_files.txt 내용 ===="
+          cat changed_files.txt || echo "(no changed files..)"
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python script with changed_files.txt
+        run: |
+          python main.py changed_files.txt
+
+      - name: Commit and push changes
+        run: |
+          # 변경 사항이 없으면 바로 종료
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          # 커밋용 유저 정보 설정
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git status
+          git add .
+
+          git commit -m "chore: baekjoon 문제 자동 분류"
+          git push
