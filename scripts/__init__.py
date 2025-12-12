@@ -20,9 +20,10 @@ def process_files(changed_files):
             continue
         print(f"[Info]: {problems_infos}")
 
+        ext = os.path.splitext(src_path)[1]
         for problem_tag in problems_infos["problem_tags"]:
             dst_path = os.path.join(dst_dir, problem_tag["key"])
 
             # file_control.copy_file_with_category(src_path, dst_path)
-            readme.append_row_to_table(dst_path, problems_infos, problem_tag)
+            readme.append_row_to_table(dst_path, ext, problems_infos, problem_tag)
             return

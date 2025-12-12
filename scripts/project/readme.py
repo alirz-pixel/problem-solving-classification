@@ -32,7 +32,7 @@ def exist_problem(contents, start_idx, end_idx, problem_id):
     return False
 
 
-def append_row_to_table(dst_path, problem_info, problem_tag):
+def append_row_to_table(dst_path, ext, problem_info, problem_tag):
     readme_path = os.path.join(dst_path, "README.md")
     if not os.path.exists(readme_path):
         init_readme(readme_path, problem_tag)
@@ -57,7 +57,7 @@ def append_row_to_table(dst_path, problem_info, problem_tag):
     problem_id_str = f"[{problem_info['id']}]({problem_link})"
     problem_title_str = f"[{problem_info['title']}]({problem_link})"
     problem_tier_str = f"<img height='24px' src='{PROBLEM_TIER_HREF}{problem_info['tier']}.svg'/>"
-    problem_solve_str = f"[바로가기]({GITHUB_SOLVE_HREF}{problem_info['id']}.py)"
+    problem_solve_str = f"[바로가기]({GITHUB_SOLVE_HREF}{problem_info['id']}.{ext})"
 
     row = [cur_id, problem_id_str, problem_title_str, problem_tier_str, problem_solve_str]
     row_str = "| " + " | ".join(row) + " |"
