@@ -4,7 +4,7 @@ while True:
     if M == 0 and N == 0:
         break
 
-    board = [N * [0] for _ in range(M)]
+    board = [ N * [0] for _ in range(M) ]
     for y in range(M):
         board[y] = list(map(int, input().split()))
 

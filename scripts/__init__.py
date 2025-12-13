@@ -26,4 +26,3 @@ def process_files(changed_files):
 
             # file_control.copy_file_with_category(src_path, dst_path)
             readme.append_row_to_table(dst_path, ext, problems_infos, problem_tag)
-            return

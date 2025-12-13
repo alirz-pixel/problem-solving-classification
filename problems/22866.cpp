@@ -2,7 +2,7 @@
 #include <vector>
 #include <stack>
 
-using namespace std;
+using namespace std ;
 
 struct Build {
 	int height;
